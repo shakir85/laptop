@@ -1,0 +1,16 @@
+---
+# Tasks for configuring Terminator terminal
+- name: Delete the directory if it exists
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/terminator"
+    state: absent
+
+- name: Ensure an empty terminator directory exists
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/terminator"
+    state: directory
+
+- name: Extract sublime.config.tar.gz into ~/.config/terminator
+  ansible.builtin.command: "tar -zxvf {{ role_path }}/files/terminator.config.tar.gz -C {{ default_user_home }}/.config/terminator --strip-components=2"
+  args:
+    chdir: "{{ role_path }}/files"

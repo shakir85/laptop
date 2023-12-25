@@ -1,12 +1,30 @@
 ---
-- name: Mount NFS volumes
-  include_tasks: nfs.yml
+# - name: Mount NFS volumes
+#   include_tasks: nfs.yml
 
-- name: Configure .bashrc
-  include_tasks: bashrc.yml
+# - name: Configure .bashrc
+#   include_tasks: bashrc.yml
 
-- name: Configure .vimrc
-  include_tasks: vimrc.yml
+# - name: Configure .vimrc
+#   include_tasks: vimrc.yml
 
-- name: Add vars to bashrc
-  include_tasks: bashrcvars.yml
+# - name: Configure sublime text
+#   include_tasks: sublime.yml
+
+# - name: Configure Terminator terminal
+#   include_tasks: terminator.yml
+
+# - name: Add vars to bashrc
+#   include_tasks: bashrcvars.yml
+
+- name: Ensure default home directories exist
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/{{ item }}"
+    state: directory
+    owner: "{{ default_user }}"
+    group: "{{ default_user }}"
+    mode: "0755"
+  loop:
+    - .themes
+    - .icons
+    - repos

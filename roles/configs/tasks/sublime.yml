@@ -1,0 +1,23 @@
+---
+# Tasks for configuring sublime text
+- name: Disable sublime nagging to purchase a license
+  ansible.builtin.lineinfile:
+    path: "/etc/hosts"
+    line: "127.0.0.1    www.sublimetext.com"
+    insertafter: EOF
+    state: present
+
+- name: Delete the directory if it exists
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/sublime-text"
+    state: absent
+
+- name: Ensure an empty sublime-text directory exists
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.config/sublime-text"
+    state: directory
+
+- name: Extract sublime.config.tar.gz into ~/.config/sublime-text
+  ansible.builtin.command: "tar -zxvf {{ role_path }}/files/sublime.config.tar.gz -C {{ default_user_home }}/.config/sublime-text --strip-components=2"
+  args:
+    chdir: "{{ role_path }}/files"
