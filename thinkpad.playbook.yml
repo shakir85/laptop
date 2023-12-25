@@ -4,5 +4,10 @@
     connection: local 
     become: true
 
+    vars_files:
+      - /mnt/ansible/vars.vault.yml
+
     roles:
-      - utilities
+      - configs
+      - apps
+      - docker

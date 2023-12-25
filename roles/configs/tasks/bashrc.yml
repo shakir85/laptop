@@ -4,7 +4,7 @@
 # ------------------------------
 - name: Check if .bashrc exists
   stat:
-    path: "{{ default_user_home }}.bashrc"
+    path: "{{ default_user_home }}/.bashrc"
   register: bashrc_stat
 
 - name: Back up .bashrc if exists
@@ -14,9 +14,9 @@
 
 - name: Remove default .bashrc
   when: bashrc_stat.stat.exists
-  file:
+  ansible.builtin.file:
     state: absent
-    path: "{{ default_user_home }}.bashrc"
+    path: "{{ default_user_home }}/.bashrc"
 
 - name: Create custom .bashrc file
   file:
@@ -24,12 +24,12 @@
     state: touch
 
 - name: Read custom .bashrc file
-  slurp:
+  ansible.builtin.slurp:
     src: "{{ role_path }}/files/bashrc"
   register: bashrc_file_content
 
 - name: Append to custom .bashrc file
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ default_user_home }}/.bashrc"
     line: "{{ bashrc_file_content['content'] | b64decode | regex_replace('\n', '\\n') }}"
     insertafter: EOF

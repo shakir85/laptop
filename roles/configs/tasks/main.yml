@@ -1,7 +1,12 @@
 ---
+- name: Mount NFS volumes
+  include_tasks: nfs.yml
 
 - name: Configure .bashrc
   include_tasks: bashrc.yml
 
 - name: Configure .vimrc
   include_tasks: vimrc.yml
+
+- name: Add vars to bashrc
+  include_tasks: bashrcvars.yml

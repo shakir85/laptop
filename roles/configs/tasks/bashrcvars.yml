@@ -1,0 +1,38 @@
+---
+- name: Set bashrc variables
+  set_fact:
+    environment_variables:
+      - name: PM_API_TOKEN_SECRET
+        value: "{{ PM_API_TOKEN_SECRET }}"
+      - name: PM_API_TOKEN_ID
+        value: "{{ PM_API_TOKEN_ID }}"
+      - name: CI_TOKEN
+        value: "{{ CI_TOKEN }}"
+      - name: GITLAB_API_TOKEN
+        value: "{{ GITLAB_API_TOKEN }}"
+      - name: GITLAB_API_TF
+        value: "{{ GITLAB_API_TF }}"
+      - name: GITLAB_REGISTRY_TOKEN
+        value: "{{ GITLAB_REGISTRY_TOKEN }}"
+      - name: DISCORD_WEBHOOK
+        value: "{{ DISCORD_WEBHOOK }}"
+      - name: DATADOG_KEY
+        value: "{{ DATADOG_KEY }}"
+      - name: MVDLOGIN
+        value: "{{ MVDLOGIN }}"
+      - name: TF_VAR_lxcpwd
+        value: "{{ TF_VAR_lxcpwd }}"
+      - name: TF_VAR_ssh_pub_key
+        value: "{{ TF_VAR_ssh_pub_key }}"
+      - name: DD_API_KEY
+        value: "{{ DD_API_KEY }}"
+      - name: DOCKING_STATION_UUID
+        value: "{{ DOCKING_STATION_UUID }}"
+
+- name: Append environment variables to a file
+  ansible.builtin.blockinfile:
+    path: "{{ default_user_home }}/.bashrc"
+    block: |
+      {% for item in environment_variables %}
+      export {{ item['name'] }}={{ item['value'] }}
+      {% endfor %}

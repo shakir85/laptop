@@ -16,3 +16,27 @@ flatpaks:
  - "com.plexamp.Plexamp"
  - "app.ytmdesktop.ytmdesktop"
  - "com.slack.Slack"
+
+apt_packages: 
+  - 'zip'
+  - 'ncdu'
+  - 'rsync'
+  - 'python3-pip'
+  - 'ca-certificates'
+  - 'apt-transport-https'
+  - 'gnupg'
+  - 'lsb-release'
+  - 'htop'
+  - 'curl'
+  - 'vim'
+  - 'figlet'
+  - 'git'
+  - 'neofetch'
+  - 'wget'
+  - 'terminator'
+  - 'flameshot'
+  - 'flatpak'
+  - 'tldr'
+  - 'vlc'
+  - 'python3-launchpadlib'
+  - 'software-properties-common'

@@ -11,13 +11,13 @@
   with_items: "{{ deb_packages_urls }}"
 
 - name: Find Debian packages in directory
-  find:
+  ansible.builtin.find:
     paths: /tmp/debs/
     patterns: '*.deb'
   register: debian_packages
 
 - name: Install Debian packages
-  apt:
+  ansible.builtin.apt:
     deb: "{{ item.path }}"
     state: present
   with_items: "{{ debian_packages.files }}"
