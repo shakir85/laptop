@@ -1,0 +1,21 @@
+# Debian 12 specific, see this Sof answer:
+# https://stackoverflow.com/questions/75608323/how-do-i-solve-error-externally-managed-environment-every-time-i-use-pip-3/75722775#75722775
+- name: Remove pip externally managed environment
+  ansible.builtin.file:
+    state: absent
+    path: "/usr/lib/python3.11/EXTERNALLY-MANAGED"
+  when:
+    - "ansible_distribution == 'Debian'"
+    - "ansible_distribution_major_version == '12'"
+
+# ----------------------------
+# Install Python packages/apps
+# ----------------------------
+- name: install from pip
+  pip:
+    name: "{{ item }}"
+  loop:
+    - pipenv
+    - ipython
+    - pexpect
+  

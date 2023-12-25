@@ -1,0 +1,36 @@
+---
+# ------------------------------
+# Tasks for configuraing .vimrc
+# ------------------------------
+- name: Check if .vimrc exists
+  stat:
+    path: "{{ default_user_home }}.vimrc"
+  register: vimrc_stat
+
+- name: Back up .vimrc if exists
+  when: vimrc_stat.stat.exists
+  ansible.builtin.command: mv {{ default_user_home }}/.vimrc {{ default_user_home }}/.vimrc.ansible.{{ ansible_date_time.iso8601 }}
+  changed_when: false
+
+- name: Remove default .vimrc
+  when: vimrc_stat.stat.exists
+  file:
+    state: absent
+    path: "{{ default_user_home }}.vimrc"
+
+- name: Create custom .vimrc file
+  file:
+    path: "{{ default_user_home }}/.vimrc"
+    state: touch
+
+- name: Read custom .vimrc file
+  slurp:
+    src: "{{ role_path }}/files/vimrc"
+  register: vimrc_file_content
+
+- name: Append to custom .vimrc file
+  lineinfile:
+    path: "{{ default_user_home }}/.vimrc"
+    line: "{{ vimrc_file_content['content'] | b64decode | regex_replace('\n', '\\n') }}"
+    insertafter: EOF
+    state: present

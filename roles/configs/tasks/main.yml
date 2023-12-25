@@ -1,0 +1,7 @@
+---
+
+- name: Configure .bashrc
+  include_tasks: bashrc.yml
+
+- name: Configure .vimrc
+  include_tasks: vimrc.yml

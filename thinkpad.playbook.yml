@@ -1,0 +1,8 @@
+---
+  - name: "Thinkpad configurations and installation"
+    hosts: localhost
+    connection: local 
+    become: true
+
+    roles:
+      - utilities

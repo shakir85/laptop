@@ -1,0 +1,5 @@
+---
+default_user: shakir
+default_user_home: /home/shakir
+default_nfs_mount: "10.10.50.38:/volume1/debian12"
+default_timezone: America/Los_Angeles

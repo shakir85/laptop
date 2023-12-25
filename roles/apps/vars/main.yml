@@ -1,0 +1,18 @@
+---
+deb_packages_urls:
+  - "https://discord.com/api/download?platform=linux&format=deb"
+  - "https://mullvad.net/en/download/app/deb/latest"
+  - "https://global.synologydownload.com/download/Utility/SynologyDriveClient/3.4.0-15724/Ubuntu/Installer/synology-drive-client-15724.x86_64.deb"
+  - "https://global.synologydownload.com/download/Utility/NoteStationClient/2.2.4-703/Ubuntu/x86_64/synology-note-station-client-2.2.4-703-linux-x64.deb"
+  - "https://github.com/zidoro/pomatez/releases/download/v1.6.4/Pomatez-v1.6.4-linux-amd64.deb"
+  - "https://www.mediahuman.com/download/YouTubeToMP3.amd64.deb"
+  - "https://download.virtualbox.org/virtualbox/7.0.12/virtualbox-7.0_7.0.12-159484~Debian~bookworm_amd64.deb"
+  - "https://updates.getmailspring.com/download?platform=linuxDeb"
+
+flatpaks:
+ - "com.authy.Authy"
+ - "net.cozic.joplin_desktop"
+ - "com.simplenote.Simplenote"
+ - "com.plexamp.Plexamp"
+ - "app.ytmdesktop.ytmdesktop"
+ - "com.slack.Slack"

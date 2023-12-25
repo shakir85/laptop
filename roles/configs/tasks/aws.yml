@@ -1,0 +1,13 @@
+- name: Init AWS config directory
+  shell: |
+          mkdir {{ default_user_home }}.aws
+          echo -e "[default]\naws_access_key_id="{{ aws_access_key }}"\naws_secret_access_key="{{ aws_secret_key }}"" > {{ default_user_home }}/.aws/credentials
+          echo -e "[default]\nregion = "{{ aws_default_region }}"\noutput = json" > {{ default_user_home }}/.aws/config
+
+- name: Recursively change aws dir ownership
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.aws "
+    state: directory
+    recurse: yes
+    owner: "{{ default_user }}"
+    group: "{{ default_user }}"

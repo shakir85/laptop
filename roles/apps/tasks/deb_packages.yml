@@ -1,0 +1,23 @@
+- name: Creates temp directory
+  ansible.builtin.file:
+    path: /tmp/debs/
+    state: directory
+
+- name: Download Debian packages
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /tmp/debs/
+    mode: 0755
+  with_items: "{{ deb_packages_urls }}"
+
+- name: Find Debian packages in directory
+  find:
+    paths: /tmp/debs/
+    patterns: '*.deb'
+  register: debian_packages
+
+- name: Install Debian packages
+  apt:
+    deb: "{{ item.path }}"
+    state: present
+  with_items: "{{ debian_packages.files }}"
