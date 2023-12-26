@@ -8,6 +8,7 @@ deb_packages_urls:
   - "https://www.mediahuman.com/download/YouTubeToMP3.amd64.deb"
   - "https://download.virtualbox.org/virtualbox/7.0.12/virtualbox-7.0_7.0.12-159484~Debian~bookworm_amd64.deb"
   - "https://updates.getmailspring.com/download?platform=linuxDeb"
+  - "https://github.com/Ulauncher/Ulauncher/releases/download/5.15.6/ulauncher_5.15.6_all.deb"
 
 flatpaks:
  - "com.authy.Authy"
@@ -40,3 +41,4 @@ apt_packages:
   - 'vlc'
   - 'python3-launchpadlib'
   - 'software-properties-common'
+  - 'lshw'

@@ -1,0 +1,20 @@
+---
+- name: Ensure .ssh directory exists.
+  ansible.builtin.file: 
+    dest: "{{ default_user_home }}/.ssh"
+    mode: 0700 
+    owner: "{{ default_user }}" 
+    state: directory
+
+- name: Install ssh key
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ default_user_home }}/.ssh/"
+    mode: 0600
+    owner: "{{ default_user }}"
+  loop:
+    - /mnt/ansible/ssh/id_rsa
+    - /mnt/ansible/ssh/id_rsa.pub
+    - /mnt/ansible/ssh/config
+    - /mnt/ansible/ssh/default-key.pem
+  no_log: true

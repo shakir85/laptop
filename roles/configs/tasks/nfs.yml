@@ -47,29 +47,42 @@
     - nfs-common
     - nfs-client.target
 
-- name: Check directories before mounting
+- name: Check if mount points exist before mounting
   ansible.builtin.file:
     path: "/mnt/{{ item }}"
     state: directory
-    owner: "{{ default_user }}"
-    group: "{{ default_user }}"
     recurse: true
-  loop:
-    - ansible
-    - debian12
+  loop: "{{ nfs_mount_points }}"
   ignore_errors: true
 
 - name: Check variables
   ansible.builtin.debug:
     msg:
-      - NFS source => {{ default_nfs_mount }}
+      - NFS mount => {{ nfs_mount }}
+      - NFS mount points => /mnt/{{ nfs_mount_points }}
+
+- name: Check if NFS mount entry is already defined in /etc/fstab
+  lineinfile:
+    state: absent
+    path: "/etc/fstab"
+    regexp: "^10.10.50.38:/volume1/*"
+  check_mode: true
+  changed_when: false
+  register: check_fstab
+
+- name: Add NFS mount entry to /etc/fstab if not exist
+  lineinfile:
+    state: present
+    path: "/etc/fstab"
+    line: "{{ nfs_mount }}/{{ item }} /mnt/{{ item }}   nfs   defaults   0 0"
+  loop: "{{ nfs_mount_points }}"
+  when: check_fstab.found == 0
 
 - name: Mounting NFS
   ansible.posix.mount:
-    src: "{{ default_nfs_mount }}/{{ item }}"
+    src: "{{ nfs_mount }}/{{ item }}"
     path: "/mnt/{{ item }}"
     fstype: nfs
     opts: "rw,sync"
     state: mounted
-    # add mount points to global_vars/all.yml
-  loop: "{{ default_mount_points }}"
+  loop: "{{ nfs_mount_points }}"

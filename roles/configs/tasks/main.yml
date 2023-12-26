@@ -1,21 +1,24 @@
 ---
-# - name: Mount NFS volumes
-#   include_tasks: nfs.yml
+- name: Configure ssh
+  include_tasks: ssh.yml
 
-# - name: Configure .bashrc
-#   include_tasks: bashrc.yml
+- name: Mount NFS volumes
+  include_tasks: nfs.yml
 
-# - name: Configure .vimrc
-#   include_tasks: vimrc.yml
+- name: Configure .bashrc
+  include_tasks: bashrc.yml
 
-# - name: Configure sublime text
-#   include_tasks: sublime.yml
+- name: Configure .vimrc
+  include_tasks: vimrc.yml
 
-# - name: Configure Terminator terminal
-#   include_tasks: terminator.yml
+- name: Configure sublime text
+  include_tasks: sublime.yml
 
-# - name: Add vars to bashrc
-#   include_tasks: bashrcvars.yml
+- name: Configure Terminator terminal
+  include_tasks: terminator.yml
+
+- name: Add vars to bashrc
+  include_tasks: bashrcvars.yml
 
 - name: Ensure default home directories exist
   ansible.builtin.file:

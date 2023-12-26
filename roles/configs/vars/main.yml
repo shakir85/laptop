@@ -1,7 +1,7 @@
 ---
 # vars file for configs
-default_mount_points: 
+nfs_mount_points: 
   - ansible
   - debian12
 
-default_nfs_mount: "10.10.50.38:/volume1"
+nfs_mount: "10.10.50.38:/volume1"
