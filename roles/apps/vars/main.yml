@@ -45,3 +45,4 @@ apt_packages:
   - 'lshw'
   - 'sublime-text'
   - 'deja-dup'
+  - 'caffeine'
