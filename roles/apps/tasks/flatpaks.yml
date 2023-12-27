@@ -1,3 +1,0 @@
-- name: Install flatpaks
-  ansible.builtin.command: "flatpak install flathub -y --noninteractive {{ item }}"
-  loop: "{{ flatpaks }}"

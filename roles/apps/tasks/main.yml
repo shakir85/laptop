@@ -13,31 +13,6 @@
     repo: deb https://download.sublimetext.com/ apt/stable/
     state: present
 
-
-- name: Update and Install Sublime Text
-  ansible.builtin.apt:
-    name: sublime-text
-    state: present
-    update_cache: true
-
-# --------------
-# Install VSCode
-# --------------
-- name: Download VSCode Debian package
-  ansible.builtin.get_url:
-    url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-    dest: "/tmp/code.deb"
-
-- name: Install VSCode from Debian package
-  ansible.builtin.apt:
-    deb: "/tmp/code.deb"
-    state: present
-
-- name: Remove downloaded Debian package
-  ansible.builtin.file:
-    path: "/tmp/code.deb"
-    state: absent
-
 # -------
 # AWS cli
 # -------
@@ -54,12 +29,6 @@
 
 - name: Install AWS cli tool
   shell: /tmp/aws/install --update 
-
-# --------
-# Flatpaks
-# --------
-- name: Install flatpak apps
-  include_tasks: flatpaks.yml
 
 # ------------
 # Deb packages
@@ -100,4 +69,4 @@
   ansible.builtin.shell: |
     bash -c "$(wget https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
   become_user: "{{ default_user }}"
-  when: not directory_check.stat.exist
+  when: not directory_check.stat.exists

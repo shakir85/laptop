@@ -11,3 +11,13 @@
       - apps
       - configs
       - docker
+    
+    tasks:
+      - name: Show message
+        debug:
+          msg: "The host will reboot in 10 seconds."
+      
+      - name: Schedule reboot after 10 seconds
+        command: "sleep 10 && sudo reboot"
+        async: 0
+        poll: 0

@@ -9,6 +9,7 @@ deb_packages_urls:
   - "https://download.virtualbox.org/virtualbox/7.0.12/virtualbox-7.0_7.0.12-159484~Debian~bookworm_amd64.deb"
   - "https://updates.getmailspring.com/download?platform=linuxDeb"
   - "https://github.com/Ulauncher/Ulauncher/releases/download/5.15.6/ulauncher_5.15.6_all.deb"
+  - "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 
 flatpaks:
  - "com.authy.Authy"
@@ -40,6 +41,7 @@ apt_packages:
   - 'flatpak'
   - 'tldr'
   - 'vlc'
-  - 'python3-launchpadlib'
+  - 'python3-launchpadlib' # needed to fix add-apt-repository on fresh debian install
   - 'software-properties-common'
   - 'lshw'
+  - 'sublime-text'

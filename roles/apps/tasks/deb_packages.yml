@@ -1,3 +1,10 @@
+---
+- name: Delete the /tmp/debs/ directory if it exists
+  ansible.builtin.file:
+    path: /tmp/debs/
+    state: absent
+  ignore_errors: true
+
 - name: Creates temp directory
   ansible.builtin.file:
     path: /tmp/debs/

@@ -1,0 +1,17 @@
+---
+- name: "Install flatpaks"
+  hosts: localhost
+  connection: local 
+  become: true
+
+  tasks:
+    - name: Install flatpaks
+      ansible.builtin.command: "flatpak install flathub -y --noninteractive {{ item }}"
+      loop: 
+        - "com.authy.Authy"
+        - "net.cozic.joplin_desktop"
+        - "com.simplenote.Simplenote"
+        - "com.plexamp.Plexamp"
+        - "app.ytmdesktop.ytmdesktop"
+        - "com.slack.Slack"
+        - "org.munadi.Munadi"
