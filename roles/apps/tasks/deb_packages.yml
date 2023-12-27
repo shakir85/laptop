@@ -17,6 +17,11 @@
     mode: 0755
   with_items: "{{ deb_packages_urls }}"
 
+- name: Download VSCode Debian package
+  ansible.builtin.get_url:
+    url: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    dest: "/tmp/debs/code.deb"
+
 - name: Find Debian packages in directory
   ansible.builtin.find:
     paths: /tmp/debs/

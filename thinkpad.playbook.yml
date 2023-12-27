@@ -13,11 +13,7 @@
       - docker
     
     tasks:
-      - name: Show message
-        debug:
-          msg: "The host will reboot in 10 seconds."
-      
-      - name: Schedule reboot after 10 seconds
-        command: "sleep 10 && sudo reboot"
-        async: 0
+      - name: Rebooting...
+        ansible.legacy.shell: "sleep 5 && reboot"
+        async: 1
         poll: 0
