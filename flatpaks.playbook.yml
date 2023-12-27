@@ -5,6 +5,9 @@
   become: true
 
   tasks:
+    - name: Add flathub repo
+      ansible.builtin.command: "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+
     - name: Install flatpaks
       ansible.builtin.command: "flatpak install flathub -y --noninteractive {{ item }}"
       loop: 
