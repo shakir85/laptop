@@ -17,6 +17,7 @@ flatpaks:
  - "com.plexamp.Plexamp"
  - "app.ytmdesktop.ytmdesktop"
  - "com.slack.Slack"
+ - "org.munadi.Munadi"
 
 apt_packages: 
   - 'zip'

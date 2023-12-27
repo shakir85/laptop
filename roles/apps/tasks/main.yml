@@ -87,3 +87,17 @@
 
 - name: Install pip apps and packages
   include_tasks: pip.yml
+
+# -------
+# Scripts
+# -------
+- name: Check if Oh My Bash is installed
+  stat:
+    path: "{{ default_user }}/.oh-my-bash"
+  register: directory_check
+
+- name: Install Oh My Bash if not already installed
+  ansible.builtin.shell: |
+    bash -c "$(wget https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
+  become_user: "{{ default_user }}"
+  when: not directory_check.stat.exist

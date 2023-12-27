@@ -1,0 +1,17 @@
+---
+# Task to configure oh my bash
+- name: Extract ohmybash.theme.tar.gz into ~/.oh-my-bash/themes
+  ansible.builtin.command: "tar -zxvf {{ role_path }}/files/ohmybash.theme.tar.gz -C {{ default_user_home }}/.oh-my-bash/themes --strip-components=0"
+  args:
+    chdir: "{{ role_path }}/files"
+
+- name: Set oh my bash theme
+  lineinfile:
+    path: "{{ default_user_home }}/.bashrc"
+    regexp: '^OSH_THEME='
+    line: 'OSH_THEME=binaryanomaly'
+
+- name: Delete git directory
+  file:
+    path: "{{ default_user_home }}/.oh-my-bash/.git"
+    state: absent

@@ -1,25 +1,4 @@
 ---
-- name: Configure ssh
-  include_tasks: ssh.yml
-
-- name: Mount NFS volumes
-  include_tasks: nfs.yml
-
-- name: Configure .bashrc
-  include_tasks: bashrc.yml
-
-- name: Configure .vimrc
-  include_tasks: vimrc.yml
-
-- name: Configure sublime text
-  include_tasks: sublime.yml
-
-- name: Configure Terminator terminal
-  include_tasks: terminator.yml
-
-- name: Add vars to bashrc
-  include_tasks: bashrcvars.yml
-
 - name: Ensure default home directories exist
   ansible.builtin.file:
     path: "{{ default_user_home }}/{{ item }}"
@@ -31,3 +10,31 @@
     - .themes
     - .icons
     - repos
+
+- name: Mount NFS volumes
+  include_tasks: nfs.yml
+
+- name: Add ssh keys
+  include_tasks: ssh.yml
+
+- name: Add vars to bashrc
+  include_tasks: bashrcvars.yml
+  no_log: true
+
+- name: Check if Oh My Bash is installed
+  stat:
+    path: "{{ default_user_home }}/.oh-my-bash"
+  register: directory_check
+
+- name: Configure Oh My Bash if installed
+  include_tasks: ohmybash.yml
+  when: directory_check.stat.exists
+
+- name: Configure .vimrc
+  include_tasks: vimrc.yml
+
+- name: Configure sublime text
+  include_tasks: sublime.yml
+
+- name: Configure Terminator terminal
+  include_tasks: terminator.yml

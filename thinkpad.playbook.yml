@@ -6,9 +6,8 @@
 
     vars_files:
       - /mnt/ansible/vars.vault.yml
-      - /mnt/ansible/ssh.config.tar.gz
 
     roles:
-      - configs
       - apps
+      - configs
       - docker
