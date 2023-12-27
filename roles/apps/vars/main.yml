@@ -44,3 +44,4 @@ apt_packages:
   - 'software-properties-common'
   - 'lshw'
   - 'sublime-text'
+  - 'deja-dup'
