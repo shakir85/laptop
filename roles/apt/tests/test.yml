@@ -1,0 +1,6 @@
+---
+- hosts: testing
+  remote_user: shakir
+  become: true
+  roles:
+    - apt
