@@ -1,0 +1,41 @@
+---
+# tasks file for aws_cli
+- name: Download aws cli zip
+  ansible.builtin.get_url: 
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip 
+    dest: /tmp/awscliv2.zip
+
+- name: Unzip AWS cli archive
+  ansible.builtin.unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    copy: no
+
+- name: Install AWS cli tool
+  shell: /tmp/aws/install --update 
+
+# The following tasks are disabled. I'm keeping them just for reference.
+- name: Set bashrc variables
+  set_fact:
+    environment_variables:
+      - name: aws_access_key
+        value: "{{ aws_access_key_id }}"
+      - name: aws_secret_key
+        value: "{{ aws_secret_access_key }}"
+  tags: never
+
+- name: Init AWS config directory
+  shell: |
+          mkdir {{ default_user_home }}.aws
+          echo -e "[default]\naws_access_key_id="{{ aws_access_key }}"\naws_secret_access_key="{{ aws_secret_key }}"" > {{ default_user_home }}/.aws/credentials
+          echo -e "[default]\nregion = "{{ aws_default_region }}"\noutput = json" > {{ default_user_home }}/.aws/config
+  tags: never
+
+- name: Recursively change aws dir ownership
+  ansible.builtin.file:
+    path: "{{ default_user_home }}/.aws "
+    state: directory
+    recurse: yes
+    owner: "{{ default_user }}"
+    group: "{{ default_user }}"
+  tags: never
