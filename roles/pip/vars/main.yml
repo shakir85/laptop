@@ -1,0 +1,6 @@
+---
+# vars file for pip
+pip_packages:
+  - pipenv
+  - ipython
+  - pexpect
