@@ -1,0 +1,35 @@
+---
+# tasks file for deb_pkgs
+- name: Delete the /tmp/debs/ directory if it exists
+  ansible.builtin.file:
+    path: /tmp/debs/
+    state: absent
+  ignore_errors: true
+
+- name: Creates temp directory
+  ansible.builtin.file:
+    path: /tmp/debs/
+    state: directory
+
+- name: Download Debian packages
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: "/tmp/debs/{{ 'ansible-' + lookup('pipe', 'openssl rand -hex 3') + '.deb' }}"
+    mode: 0755
+  loop: "{{ deb_packages_urls }}"
+
+- name: Find Debian packages in directory
+  ansible.builtin.find:
+    paths: /tmp/debs/
+    patterns: '*.deb'
+  register: debian_packages
+
+- name: Wait for apt lock
+  ansible.builtin.shell: while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 5; done;
+  changed_when: false
+
+- name: Install Debian packages
+  ansible.builtin.apt:
+    deb: "{{ item.path }}"
+    state: present
+  loop: "{{ debian_packages.files }}"
