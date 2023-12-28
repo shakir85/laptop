@@ -1,0 +1,35 @@
+---
+# tasks file for apt
+
+- name: Install apt packages
+  ansible.builtin.apt:
+    name: 'python3-launchpadlib' # needed to fix add-apt-repository on fresh debian install
+    state: present
+    force_apt_get: true
+
+- name: Add repos GPG key
+  ansible.builtin.apt_key:
+    url: "{{ item }}"
+    state: present
+  loop: "{{ repos_keys }}"
+
+- name: Add apt repositories
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop: "{{ apt_repositories }}"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    force_apt_get: true
+
+- name: Wait for apt lock
+  ansible.builtin.shell: while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 5; done;
+  changed_when: false
+
+- name: Install apt packages
+  ansible.builtin.apt:
+    name: "{{ apt_packages }}"
+    state: present
+    force_apt_get: true
