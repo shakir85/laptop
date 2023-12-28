@@ -44,3 +44,5 @@ apt_packages:
   - 'lshw'
   - 'sublime-text'
   - 'deja-dup'
+  - 'nodejs'
+  - 'npm'
