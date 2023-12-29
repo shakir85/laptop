@@ -46,3 +46,4 @@ apt_packages:
   - 'containerd.io'
   - 'docker-compose-plugin'
   - 'tailscale'
+  - 'bind9-dnsutils'
