@@ -11,6 +11,9 @@
     - .icons
     - repos
 
+- name: Set hostname
+  include_tasks: hostname.yml
+
 - name: Mount NFS volumes
   include_tasks: nfs.yml
 

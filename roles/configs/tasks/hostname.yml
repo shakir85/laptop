@@ -1,0 +1,5 @@
+# set hostname based on pfsense DHCP lease config
+- name: Set a DNS configured hostname
+  ansible.builtin.hostname:
+    name: thinkpad
+    use: systemd
