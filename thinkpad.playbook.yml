@@ -8,9 +8,10 @@
       - /mnt/ansible/vars.vault.yml
 
     roles:
-      - apps
-      - configs
-      - docker
+      - apt
+      - aws_cli
+      - deb_pkgs
+      - pip
     
     tasks:
       - name: Rebooting...
