@@ -1,0 +1,8 @@
+---
+# tasks file for homebrew_osx
+
+- name: Install homebrew formulas
+  community.general.homebrew: 
+    name: "{{ item }}"
+    state: present
+  loop: "{{ formulas }}"

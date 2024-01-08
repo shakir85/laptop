@@ -1,0 +1,20 @@
+---
+- name: Install and configure homebrew formulas
+  hosts: localhost 
+  become: false 
+  vars:
+    homebrew_installed: false
+  
+  pre_tasks:
+    - name: Ensuring Homebrew Is Installed
+      stat:
+        path: /usr/local/bin/brew
+      register: homebrew_executable
+
+    - name: Install homebrew
+      shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      when:
+        - not homebrew_executable.stat.exists
+        - homebrew_installed
+  roles:
+    - homebrew_osx

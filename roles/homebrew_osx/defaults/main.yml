@@ -1,0 +1,24 @@
+---
+formulas:
+  - gedit
+  - ncdu
+  - htop
+  - curl
+  - wget
+  - figlet
+  - git
+  # - youtube-to-mp3
+  - iterm2
+  - flameshot
+  - terraform
+  - vagrant
+  - node
+  - vlc
+  - tldr
+  # - docker
+  - tailscale
+  - pomatez
+  # - SoundSource
+  - postman
+  # - simplenote
+  - iperf
